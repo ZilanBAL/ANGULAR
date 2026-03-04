@@ -1,24 +1,13 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-
-type Game = {
-  id: number;
-  title: string;
-  genre: string;
-  category: string;
-  year: number;
-  platform: string;
-  rating: number;
-  synopsis: string;
-  available: boolean;
-  image: string;
-};
+import { GameCard } from '../game/game-card.component';
+import { Game } from '../game/game.model';
 
 @Component({
   selector: 'app-root',
   // NgOptimizedImage: optimisation de chargement des images via ngSrc dans le template.
   // https://angular.dev/guide/image-optimization
-  imports: [NgOptimizedImage],
+  imports: [GameCard],
   templateUrl: './app.template.html',
   styleUrls: ['./app.css'],
 })
@@ -27,7 +16,7 @@ export class App {
   // readonly: les propriétés ne peuvent pas être réassignées après l'initialisation.
   // nomApplication: simple propriété de texte pour le titre de l'application.
   // onlyAvailable: signal boolean pour gérer l'état du filtre de disponibilité des jeux.
-  protected readonly nomApplication = 'WishFlix'; 
+  protected readonly nomApplication = 'WishFlix';
   protected readonly onlyAvailable = signal<boolean>(false);
   // Signal principal: source de verite locale de la liste de jeux.
   // https://angular.dev/guide/signals
@@ -109,18 +98,18 @@ export class App {
   // computed(): etat derive, recalcule automatiquement selon les dependances lues.
   // https://angular.dev/guide/signals
   protected readonly visibleGames = computed(() => {
-    if(!this.onlyAvailable()) return this.games(); // si le filtre n est pas actif, on retourne tous les jeux
+    if (!this.onlyAvailable()) return this.games(); // si le filtre n est pas actif, on retourne tous les jeux
     return this.games().filter((game) => game.available);
   });
 
   protected filterByAvailability(): void {
-    //update 
+    //update
     // utiliser update() pour mettre à jour notre donnée
-    this.onlyAvailable.update(available => !available);
+    this.onlyAvailable.update((available) => !available);
   }
   // transformer le if else d'affichage du bouton en une fonction qui retourne le texte du bouton selon l'état du filtre.
-  protected filterAvailibilityLabel = computed(():string => {
-    if (this.onlyAvailable()) return'Voir tous les jeux'
-    return 'Voir les jeux disponibles'})
-
+  protected filterAvailibilityLabel = computed((): string => {
+    if (this.onlyAvailable()) return 'Voir tous les jeux';
+    return 'Voir les jeux disponibles';
+  });
 }
