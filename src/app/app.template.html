@@ -55,49 +55,24 @@
       </div>
     </section>
 
-    <section aria-labelledby="titre-catalogue" class="wishflix-catalogue">
-      <div class="wishflix-catalogue__header">
-        <h2 id="titre-catalogue" class="wishflix-catalogue__title">Catalogue de jeux</h2>
-        <p class="wishflix-catalogue__subtitle">Decouvre notre selection de jeux video</p>
-      </div>
+    <game-section title="Catalogue de Jeux" subtitle="">
+      <button filter type="button" class="btn btn-primary" (click)="filterByAvailability()">
+        {{ filterAvailibilityLabel() }}
+      </button>
 
-      <div
-        class="stats shadow wishflix-catalogue__stats"
-        role="group"
-        aria-label="Statistiques catalogue"
-      >
-        <!-- IF / ELSE Mettre un condition pour afficher "Voir les jeux disponibles" si on clique et sinon "Voir tous les jeux"-->
-        <!-- @if (onlyAvailable()) {
-        <button type="button" class="btn btn-primary" (click)="filterByAvailability()">Voir tous les jeux </button>
-      } @else {
-        <button type="button" class="btn btn-primary" (click)="filterByAvailability()">Voir les jeux disponibles</button>
-      } -->
-        <!-- AVEC UNE PROPRIETE CALCULEE -->
-        <button type="button" class="btn btn-primary" (click)="filterByAvailability()">
-          {{ filterAvailibilityLabel() }}
-        </button>
+      <ng-container stat-game-count>
+        {{ visibleGames().length }}
+      </ng-container>
 
-        <div class="stat">
-          <div class="stat-title">Totals jeux</div>
-          <!-- Signal/computed: lecture reactive dans le template -->
-          <!-- https://angular.dev/guide/signals -->
-          <div class="stat-value text-primary">{{ visibleGames().length }}</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-title">Ma Wishlist</div>
-          <div class="stat-value text-accent">0</div>
-        </div>
-      </div>
-
-      <div class="wishflix-catalogue__grid">
-        <!-- Control flow @for: boucle template avec track pour optimiser le rendu -->
-        <!-- https://angular.dev/guide/templates/control-flow -->
-        @for (game of visibleGames(); track game.id) {
-          <game-card [game]="game"></game-card>
-        }
-      </div>
-    </section>
+      <!-- Control flow @for: boucle template avec track pour optimiser le rendu -->
+      <!-- https://angular.dev/guide/templates/control-flow -->
+      @for (game of visibleGames(); track game.id) {
+        <game-card [game]="game"></game-card>
+        <!-- Property binding : on passe chaque objet Game au composant enfant via son input 'game' -->
+        <!-- pour aller plus loin : https://angular.dev/guide/templates/binding#property-binding -->
+      }
+    </game-section>
+    <game-section title="TEST"></game-section>
   </main>
 
   <footer class="wishflix-footer" aria-label="Pied de page">

@@ -2,12 +2,13 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { GameCard } from '../game/game-card.component';
 import { Game } from '../game/game.model';
+import { GameSection } from '../layouts/game-section';
 
 @Component({
   selector: 'app-root',
   // NgOptimizedImage: optimisation de chargement des images via ngSrc dans le template.
   // https://angular.dev/guide/image-optimization
-  imports: [GameCard],
+  imports: [GameCard, NgOptimizedImage, GameSection],
   templateUrl: './app.template.html',
   styleUrls: ['./app.css'],
 })
