@@ -37,13 +37,13 @@
         @if (game().available) {
           Disponible
         } @else {
-          Indisponible :-(
+          Indisponible 😭
         }
       </span>
 
-      <button type="button" class="btn btn-sm btn-outline" aria-pressed="false">
-        Ajouter a la wishlist
-      </button>
+      <flix-button type="outline" size="sm" (click)="favorite.emit(game().id)">
+        {{ whislistLabel }}
+      </flix-button>
     </div>
   </div>
 </article>

@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/c
 import { GameCard } from '../game/game-card.component';
 import { Game } from '../game/game.model';
 import { GameSection } from '../layouts/game-section';
+import { FlixButton } from '../layouts/flix-button/flix-button';
 
 @Component({
   selector: 'app-root',
   // NgOptimizedImage: optimisation de chargement des images via ngSrc dans le template.
   // https://angular.dev/guide/image-optimization
-  imports: [GameCard, NgOptimizedImage, GameSection],
+  imports: [GameCard, NgOptimizedImage, GameSection, FlixButton],
   templateUrl: './app.template.html',
   styleUrls: ['./app.css'],
 })
@@ -98,19 +99,44 @@ export class App {
 
   // computed(): etat derive, recalcule automatiquement selon les dependances lues.
   // https://angular.dev/guide/signals
+  protected favoriteGameIds = signal<number[]>([]);
+
   protected readonly visibleGames = computed(() => {
-    if (!this.onlyAvailable()) return this.games(); // si le filtre n est pas actif, on retourne tous les jeux
+    if (!this.onlyAvailable()) return this.games();
     return this.games().filter((game) => game.available);
   });
 
-  protected filterByAvailability(): void {
-    //update
-    // utiliser update() pour mettre à jour notre donnée
+  protected toggleFavorite(gameId: number): void {
+    this.favoriteGameIds.update((gameIds) => {
+      let newGameIds: Array<number> = gameIds;
+
+      if (!newGameIds.includes(gameId)) {
+        newGameIds.push(gameId);
+      } else {
+        newGameIds = gameIds.filter((oldGameId) => oldGameId !== gameId);
+      }
+
+      console.log(newGameIds);
+      return newGameIds;
+    });
+  }
+
+  protected filterByAvailibility(): void {
+    // update imutable sur notre signal
+    // this.onlyAvailable = !this.onlyAvailable;
     this.onlyAvailable.update((available) => !available);
   }
-  // transformer le if else d'affichage du bouton en une fonction qui retourne le texte du bouton selon l'état du filtre.
+  // protected filterAvailibilityLabel(): string {
+  //   if (this.onlyAvailable()) {
+  //     return 'voir tous les jeux';
+  //   }
+  //   return 'voir jeux disponibles';
+  // }
+  protected isFavorite(gameId: number): boolean {
+    return this.favoriteGameIds().includes(gameId);
+  }
+
   protected filterAvailibilityLabel = computed((): string => {
-    if (this.onlyAvailable()) return 'Voir tous les jeux';
-    return 'Voir les jeux disponibles';
+    return this.onlyAvailable() ? 'voir tous les jeux' : 'voir jeux disponibles';
   });
 }

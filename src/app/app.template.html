@@ -47,32 +47,42 @@
           <p class="wishflix-hero__details">2023 | 4.5/5 | 42h d'histoire principale</p>
 
           <div class="wishflix-hero__actions">
-            <button type="button" class="btn btn-primary btn-lg">Lancer la lecture</button>
+            <flix-button role="primary" size="lg">
+              <ng-content> Lancer la lecture </ng-content>
+            </flix-button>
 
-            <button type="button" class="btn btn-outline btn-lg">Plus d'infos</button>
+            <flix-button role="primary" size="md">
+              <ng-content> Plus d'infos </ng-content>
+            </flix-button>
           </div>
         </div>
       </div>
     </section>
 
     <game-section title="Catalogue de Jeux" subtitle="">
-      <button filter type="button" class="btn btn-primary" (click)="filterByAvailability()">
+      <flix-button filter role="primary" size="lg" (click)="filterByAvailibility()">
         {{ filterAvailibilityLabel() }}
-      </button>
+      </flix-button>
 
       <ng-container stat-game-count>
         {{ visibleGames().length }}
+      </ng-container>
+      <ng-container stat-wishlist-count>
+        {{ favoriteGameIds().length }}
       </ng-container>
 
       <!-- Control flow @for: boucle template avec track pour optimiser le rendu -->
       <!-- https://angular.dev/guide/templates/control-flow -->
       @for (game of visibleGames(); track game.id) {
-        <game-card [game]="game"></game-card>
-        <!-- Property binding : on passe chaque objet Game au composant enfant via son input 'game' -->
-        <!-- pour aller plus loin : https://angular.dev/guide/templates/binding#property-binding -->
+        <game-card
+          [game]="game"
+          [isFavorite]="isFavorite(game.id)"
+          (favorite)="toggleFavorite($event)"
+        ></game-card>
       }
     </game-section>
-    <game-section title="TEST"></game-section>
+    <!-- Property binding : on passe chaque objet Game au composant enfant via son input 'game' -->
+    <!-- pour aller plus loin : https://angular.dev/guide/templates/binding#property-binding -->
   </main>
 
   <footer class="wishflix-footer" aria-label="Pied de page">
