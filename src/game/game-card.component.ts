@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Game } from './game.model';
-import { FlixButton } from '../layouts/flix-button/flix-button';
+import { FlixButton } from '../flix-button/flix-button';
 
 @Component({
   imports: [NgOptimizedImage, FlixButton],

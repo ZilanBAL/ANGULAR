@@ -13,76 +13,7 @@
   </header>
 
   <main class="wishflix-main" id="contenu-principal">
-    <section class="hero wishflix-hero" aria-labelledby="titre-hero">
-      <figure class="wishflix-hero__backdrop">
-        <img
-          ngSrc="https://via.assets.so/game.png?id=42&q=95&w=1920&h=1080&fit=cover"
-          alt="Backdrop du jeu mis en avant Cyber Nexus 2077"
-          width="1920"
-          height="1080"
-          priority
-        />
-      </figure>
-      <div class="wishflix-hero__veil" aria-hidden="true"></div>
-
-      <div class="hero-content wishflix-hero__content">
-        <div class="wishflix-hero__text">
-          <p class="wishflix-hero__kicker">NOUVEAUTE WISHFLIX</p>
-          <div class="wishflix-hero__meta">
-            <span class="badge badge-primary">A la une</span>
-            <span class="badge badge-ghost">Action RPG</span>
-            <span class="badge badge-outline">PC, PS5, Xbox</span>
-          </div>
-
-          <h1 id="titre-hero" class="wishflix-hero__title">The Witcher</h1>
-          <p class="wishflix-hero__slogan">
-            Bienvenue sur {{ nomApplication }}. Decouvre une megalopole en guerre, des choices
-            moraux extremes et des combats ultra-dynamiques.
-          </p>
-          <p class="wishflix-hero__description">
-            Cette semaine, plonge dans Cyber Nexus 2077: une aventure futuriste avec une ville
-            ouverte, des choix narratifs et des combats intenses.
-          </p>
-
-          <p class="wishflix-hero__details">2023 | 4.5/5 | 42h d'histoire principale</p>
-
-          <div class="wishflix-hero__actions">
-            <flix-button role="primary" size="lg">
-              <ng-content> Lancer la lecture </ng-content>
-            </flix-button>
-
-            <flix-button role="primary" size="md">
-              <ng-content> Plus d'infos </ng-content>
-            </flix-button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <game-section title="Catalogue de Jeux" subtitle="">
-      <flix-button filter role="primary" size="lg" (click)="filterByAvailibility()">
-        {{ filterAvailibilityLabel() }}
-      </flix-button>
-
-      <ng-container stat-game-count>
-        {{ visibleGames().length }}
-      </ng-container>
-      <ng-container stat-wishlist-count>
-        {{ favoriteGameIds().length }}
-      </ng-container>
-
-      <!-- Control flow @for: boucle template avec track pour optimiser le rendu -->
-      <!-- https://angular.dev/guide/templates/control-flow -->
-      @for (game of visibleGames(); track game.id) {
-        <game-card
-          [game]="game"
-          [isFavorite]="isFavorite(game.id)"
-          (favorite)="toggleFavorite($event)"
-        ></game-card>
-      }
-    </game-section>
-    <!-- Property binding : on passe chaque objet Game au composant enfant via son input 'game' -->
-    <!-- pour aller plus loin : https://angular.dev/guide/templates/binding#property-binding -->
+    <router-outlet />
   </main>
 
   <footer class="wishflix-footer" aria-label="Pied de page">
