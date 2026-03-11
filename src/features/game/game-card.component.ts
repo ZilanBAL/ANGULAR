@@ -1,11 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Game } from './game.model';
-import { FlixButton } from '../flix-button/flix-button';
+import { FlixButton } from '../../flix-button/flix-button';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [NgOptimizedImage, FlixButton, RouterLink],
+  imports: [NgOptimizedImage, RouterLink, FlixButton],
   selector: 'game-card',
   templateUrl: './game-card.template.html',
 })
