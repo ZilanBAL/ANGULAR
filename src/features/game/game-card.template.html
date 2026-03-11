@@ -10,7 +10,9 @@
       <span class="badge badge-ghost">{{ game().genre }}</span>
     </div>
 
-    <h3 class="card-title game-card__title">{{ game().title }}</h3>
+    <a class="card-title game-card__title" [routerLink]="['/game', game().id]">
+      {{ game().title }}
+    </a>
     <p class="game-card__meta">{{ game().year }} - {{ game().platform }}</p>
     <div class="game-card__rating">
       <span class="game-card__rating-value">{{ game().rating }}</span>

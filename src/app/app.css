@@ -9,7 +9,7 @@
   z-index: 10;
   padding-inline: clamp(1rem, 3vw, 2rem);
   background: linear-gradient(180deg, rgb(3 3 6 / 78%) 0%, rgb(3 3 6 / 30%) 70%, transparent 100%);
-  backdrop-filter: blur(4px);
+  /* backdrop-filter: blur(4px); */
 }
 
 .wishflix-shell__brand {

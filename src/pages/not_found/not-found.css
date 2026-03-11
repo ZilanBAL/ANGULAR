@@ -1,0 +1,14 @@
+.wish-not-found {
+  min-height: 60svh;
+  display: grid;
+  place-content: center;
+  gap: 0.75rem;
+  justify-items: center;
+  text-align: center;
+}
+
+.wish-not-found h1 {
+  margin: 0;
+  font-size: clamp(3rem, 14vw, 8rem);
+  line-height: 1;
+}
